@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Contact Us - GRL Plumbing</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        // Initialize Google Map
+        function initMap() {
+            const woodstockLocation = { lat: 34.1015, lng: -84.5194 }; // Woodstock, GA coordinates
+            const map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                center: woodstockLocation,
+                styles: [/* Add custom map styles here */]
+            });
+
+            const marker = new google.maps.Marker({
+                position: woodstockLocation,
+                map: map,
+                title: 'Woodstock Plumbers'
+            });
+        }
+
+        // Form validation
+        function validateForm() {
+            let isValid = true;
+            const form = document.getElementById('contactForm');
+            const inputs = form.querySelectorAll('input, textarea, select');
+
+            inputs.forEach(input => {
+                const errorDiv = document.getElementById(`${input.id}Error`);
+                if (!input.value) {
+                    isValid = false;
+                    errorDiv.style.display = 'block';
+                    input.classList.add('error');
+                } else {
+                    errorDiv.style.display = 'none';
+                    input.classList.remove('error');
+                }
+
+                // Phone validation
+                if (input.id === 'phone') {
+                    const phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+                    if (!phoneRegex.test(input.value)) {
+                        isValid = false;
+                        document.getElementById('phoneError').textContent = 'Please enter a valid phone number';
+                        document.getElementById('phoneError').style.display = 'block';
+                    }
+                }
+
+                // Email validation
+                if (input.id === 'email') {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(input.value)) {
+                        isValid = false;
+                        document.getElementById('emailError').textContent = 'Please enter a valid email address';
+                        document.getElementById('emailError').style.display = 'block';
+                    }
+                }
+            });
+
+            return isValid;
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            if (!validateForm()) return;
+
+            const spinner = document.querySelector('.loading-spinner');
+            const submitButton = document.querySelector('button[type="submit"]');
+            
+            spinner.style.display = 'inline-block';
+            submitButton.disabled = true;
+
+            const form = event.target;
+            const formData = new FormData(form);
+            
+            // Simulate API call
+            setTimeout(() => {
+                const successMessage = document.getElementById('successMessage');
+                successMessage.style.display = 'block';
+                form.reset();
+                spinner.style.display = 'none';
+                submitButton.disabled = false;
+
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 5000);
+            }, 1500);
+        }
+
+        // Check if business is open
+        function checkBusinessHours() {
+            const now = new Date();
+            const day = now.getDay();
+            const hour = now.getHours();
+            const status = document.getElementById('businessStatus');
+            
+            // Regular hours: Mon-Fri 8am-6pm, Sat 9am-3pm
+            if (day >= 1 && day <= 5 && hour >= 8 && hour < 18 ||
+                day === 6 && hour >= 9 && hour < 15) {
+                status.textContent = 'Open Now';
+                status.classList.add('open');
+            } else {
+                status.textContent = 'Closed';
+                status.classList.add('closed');
+            }
+        }
+
+        // Initialize everything when page loads
+        window.onload = function() {
+            initMap();
+            checkBusinessHours();
+        };
+
+        // Hamburger menu functionality
+        function toggleMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            if (!e.target.closest('.navbar')) {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Contact GRL Plumbing</h1>
+        <p>We're Here to Help 24/7</p>
+    </header>
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <img src="images/logo.svg" alt="GRL Plumbing Logo">
+            <span class="logo-text">GRL Plumbing</span>
+        </a>
+        <button class="hamburger" onclick="toggleMenu()">
+            <span class="hamburger-icon"></span>
+        </button>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="about.html">About Us</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="contact.html" class="active">Contact</a>
+            <a href="tel:5551234567" class="emergency-nav-button">
+                <i class="fas fa-phone-alt"></i>
+                Emergency Service
+            </a>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="contact-hero">
+            <div class="emergency-banner">
+                <i class="fas fa-exclamation-circle"></i>
+                <h2>24/7 Emergency Service Available</h2>
+                <p>Call us now at <a href="tel:5551234567">(555) 123-4567</a></p>
+            </div>
+        </div>
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h2 class="section-title">Get in Touch</h2>
+                <div class="contact-methods">
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <h3>Call Us</h3>
+                        <p>24/7 Emergency Service</p>
+                        <a href="tel:5551234567" class="cta-button">(555) 123-4567</a>
+                    </div>
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3>Email Us</h3>
+                        <p>Quick Response Guaranteed</p>
+                        <a href="mailto:info@grlplumbing.com" class="cta-button">info@grlplumbing.com</a>
+                    </div>
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h3>Visit Us</h3>
+                        <p>123 Plumber Street</p>
+                        <p>Woodstock, GA 30188</p>
+                    </div>
+                </div>
+                <div class="business-hours">
+                    <h3><i class="far fa-clock"></i> Business Hours</h3>
+                    <div class="hours-grid">
+                        <div class="day-hours">
+                            <span>Monday - Friday:</span>
+                            <span>8:00 AM - 6:00 PM</span>
+                        </div>
+                        <div class="day-hours">
+                            <span>Saturday:</span>
+                            <span>9:00 AM - 3:00 PM</span>
+                        </div>
+                        <div class="day-hours">
+                            <span>Sunday:</span>
+                            <span>Emergency Only</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form-container">
+                <h2 class="section-title">Send Us a Message</h2>
+                <form id="contactForm" class="contact-form" onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" required>
+                        <div class="error-message" id="nameError"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                        <div class="error-message" id="emailError"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone:</label>
+                        <input type="tel" id="phone" name="phone" required>
+                        <div class="error-message" id="phoneError"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="service">Service Needed:</label>
+                        <select id="service" name="service" required>
+                            <option value="">Select a Service</option>
+                            <option value="emergency">Emergency Plumbing</option>
+                            <option value="repair">Repair Service</option>
+                            <option value="installation">New Installation</option>
+                            <option value="maintenance">Maintenance</option>
+                            <option value="inspection">Inspection</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message:</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                        <div class="error-message" id="messageError"></div>
+                    </div>
+                    <button type="submit" class="submit-button">
+                        <span class="button-text">Send Message</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="map-section">
+            <h2 class="section-title">Find Us</h2>
+            <div id="map" class="map-container"></div>
+        </div>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <ul>
+                    <li><i class="fas fa-phone"></i> (555) 123-4567</li>
+                    <li><i class="fas fa-envelope"></i> info@grlplumbing.com</li>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Plumber Street, Woodstock, GA</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+        <p class="copyright">&copy; 2024 GRL Plumbing. All rights reserved.</p>
+    </footer>
+    <script src="script.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
+</body>
+</html> 

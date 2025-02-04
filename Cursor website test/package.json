@@ -1,0 +1,12 @@
+{
+  "name": "grl-plumbing",
+  "version": "1.0.0",
+  "description": "GRL Plumbing Website",
+  "scripts": {
+    "build": "mkdir -p dist && cp -r *.html *.css *.js images favicon.* dist/",
+    "dev": "npx serve ."
+  },
+  "devDependencies": {
+    "serve": "^14.2.1"
+  }
+} 

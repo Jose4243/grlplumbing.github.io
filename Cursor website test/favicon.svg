@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="grlGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#003366" />
+      <stop offset="100%" style="stop-color:#0055a4" />
+    </linearGradient>
+  </defs>
+  <path fill="url(#grlGradient)" d="M26,6 C26,6 22,10 18,14 L12,8 C8,4 4,6 4,10 C4,14 6,16 10,20 L16,26 L22,20 L26,24 C28,26 30,24 30,22 L26,18 L28,16 C30,14 28,6 26,6Z"/>
+  <path fill="#cc0000" d="M16,14 C16,14 14,17 14,18 C14,20 16,20 16,18 C16,20 18,20 18,18 C18,17 16,14 16,14Z">
+    <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite"/>
+  </path>
+</svg> 

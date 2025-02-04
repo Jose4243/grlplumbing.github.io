@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="grlGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#003366" />
+      <stop offset="100%" style="stop-color:#0055a4" />
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  <!-- Wrench Shape -->
+  <path fill="url(#grlGradient)" d="M160,40 C160,40 140,60 120,80 L80,40 C60,20 30,20 15,35 C0,50 0,80 20,100 L60,140 C40,160 40,160 40,160 L60,180 L80,160 L120,120 L160,160 C180,180 200,160 200,140 L160,100 L180,80 C200,60 180,40 160,40Z" filter="url(#shadow)"/>
+  <!-- Water Drop -->
+  <path fill="#cc0000" d="M100,90 C100,90 85,110 85,120 C85,134 100,134 100,120 C100,134 115,134 115,120 C115,110 100,90 100,90Z">
+    <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite"/>
+  </path>
+  <!-- GRL Text -->
+  <text x="60" y="110" fill="#ffffff" font-family="Arial Black" font-size="24" font-weight="bold" filter="url(#shadow)">GRL</text>
+</svg> 
